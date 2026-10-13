@@ -1,0 +1,19 @@
+name: Quirrel regression tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Build pinned Quirrel CLI
+        run: python3 tests/build_quirrel.py --source "${{ runner.temp }}/quirrel" --output "${{ runner.temp }}/sq"
+      - name: Exercise module with mocked Heated Metal API
+        run: python3 tests/run.py "${{ runner.temp }}/sq"

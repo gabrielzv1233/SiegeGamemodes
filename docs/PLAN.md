@@ -40,9 +40,23 @@ Shelved: Size Matters (60% to 125% character scale). Sentry/Striker dual utility
 - Confirm module loads and `sgm` shows UI.
 - Verify only host can modify mode selection.
 - Verify all clients see host mode choice and round changes.
-- Verify reconnect/late join state sync (not implemented yet).
+- Verify reconnect/late join state sync (request/reply and heartbeat implemented, not game-tested).
 - Verify inventory test is stable and replicated before allowing automatic equipment changes.
 - Confirm reinforcement blocking and disabled utilities are actually enforced, rather than just displayed.
 - Record SDK/runtime discrepancies separately; the public API is not a guarantee of replication or gameplay correctness.
 
-**Current status:** Module scaffold, configuration selector and optional weapon-slot experiment. No game mode logic is complete.
+## Version 0.2.0 progress
+
+- Rebind networking, spawn, update, detonation and round-end callbacks after world reload.
+- Validate network packet types/ranges and accept state only from the host.
+- Sync late joiners through request/reply and periodic state broadcasts.
+- Handle restarted host sessions and stale revisions.
+- Separate next-round selection from the active mode; freeze the shared weapon ID per round.
+- Capture real loadout IDs for pistol, TCSG12 and CSRX 300.
+- Apply opt-in pistol-only / primary-only equipment prototypes on spawn and delayed entity creation.
+- Remove tertiary firearms; preserve ability and utility slots.
+- Restrict armed randomization to captured equipment prototypes.
+- Add detonation tracing for Last Laugh investigation.
+- Add real Quirrel regression tests and automated CI.
+
+**Still incomplete:** Runtime replication and inventory proof, reinforcement blocking, attachment customization, random shared-pistol selection, Loadout Roulette, all other gameplay modes, and Last Laugh's event ordering. No game mode is fully verified.
